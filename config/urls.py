@@ -20,5 +20,4 @@ from question_box import views
 urlpatterns = [
     path('accounts/', include('registration.backends.default.urls')),
     path('admin/', admin.site.urls),
-    path('', views_index_view, name='index')
 ]
