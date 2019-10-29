@@ -4,20 +4,21 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class User(AbstractUser): 
     member = models.BooleanField(default=False)
-    questions = models.ForeignKey(to='Question', on_delete=models.CASCADE, blank=True, null=True)
-    explanation = models.OneToManyField(to='Answer', on_delete=models.SET_NULL, blank=True, related_name="+")
-    commentary = models.ManyToManyField(to='Comment', on_delete=models.SET_NULL, blank=True, related_name="+") 
 
 class Question(models.Model): 
-    question = models.CharField(max_length=300)
-    description = models.TextField()
+    title = models.CharField(max_length=300, default=True)
     tag = models.TextField()
-    comments = models.ManyToManyField(to='Comment', related_name='+', blank=True)
+    member = models.ForeignKey(to='Member', on_delete=models.SET_NULL, blank=True, related_name="the_member", null=True) 
+   
 
 class Answer(models.Model):
+    title = models.CharField(max_length=300, default=True)
     answer = models.TextField()
+    question = models.ForeignKey(to='Question', on_delete=models.SET_NULL, blank=True, related_name="the_question", null=True) 
+    
 
 class Comment(models.Model):
-    comment = models.TextField()
+    comment = models.TextField(max_length=300, default=True)
+    answer = models.ForeignKey(to='Answer', on_delete=models.SET_NULL, blank=True, related_name="question_answer", null=True)
     
 
