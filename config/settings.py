@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'question_box',
 ]
 
-AUTH_USER_MODEL = "question_box.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,3 +122,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+AUTH_USER_MODEL = "question_box.User"
+LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_ACTIVATION_DAYS = 7
+
+EMAIL_BACKEND = 'django.core.mail.backends.cosole.EmailBackend'
