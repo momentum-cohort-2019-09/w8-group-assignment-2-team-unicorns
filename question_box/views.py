@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from question_box.models import User, Question, Answer
-from  question_box.forms import SearchForm
+from question_box.forms import SearchForm
 
 # Create your views here.
 
 def profile_page(request):
   page = request.page
   return render(request, "question_box/profile.html", {"page": page})
-  
+
 @login_required
 def home_view(request): 
     user = request.user
