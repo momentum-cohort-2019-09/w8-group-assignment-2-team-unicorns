@@ -7,13 +7,13 @@ class User(AbstractUser):
     
 
 class Question(models.Model): 
-    title = models.CharField(max_length=300, default=True)
+    title = models.CharField(max_length=300)
     member = models.ForeignKey(to='User', on_delete=models.CASCADE, blank=True, related_name="the_member", null=True) 
     tag = models.TextField()
    
 
 class Answer(models.Model):
-    title = models.CharField(max_length=300, default=True)
+    title = models.CharField(max_length=300)
     question = models.ForeignKey(to='Question', on_delete=models.CASCADE, blank=True, related_name="the_question", null=True) 
     answer = models.TextField()
 

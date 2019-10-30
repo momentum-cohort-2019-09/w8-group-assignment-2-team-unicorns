@@ -8,7 +8,12 @@
     {% block meta %}{% endblock %}
 </head>
 <body>
+    <form id="search" action='' method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+    
     {% block content %}
-    {% block content%}
+    {%  endblock %}
 </body>
 </html>
