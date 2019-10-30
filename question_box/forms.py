@@ -6,7 +6,7 @@ class QuestionForm(forms.ModelForm):
   
   class Meta:
     model = Question
-    fields = ['question']
+    fields = ['title','description']
   
 class SearchForm(forms.Form):
   search_word = forms.CharField(label="Search", max_length=100)

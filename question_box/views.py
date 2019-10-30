@@ -10,7 +10,7 @@ def profile_page(request):
   return render(request, "question_box/profile.html", {"page": page})
 
 @login_required
-def home_view(request): 
+def login_view(request): 
     user = request.user
     return render(request, "question_box/home.html", {"user": user})
 
