@@ -19,5 +19,7 @@ from question_box import views
 
 urlpatterns = [
     path('accounts/', include('registration.backends.default.urls')),
+    path('', views.home_view, name='home'), 
     path('admin/', admin.site.urls),
+
 ]
