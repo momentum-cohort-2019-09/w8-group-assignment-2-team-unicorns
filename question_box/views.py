@@ -6,7 +6,7 @@ from  question_box.forms import SearchForm
 # Create your views here.
 
 @login_required
-def home_view(request): 
+def login_view(request): 
     user = request.user
     return render(request, "question_box/home.html", {"user": user})
 
