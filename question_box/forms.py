@@ -10,3 +10,6 @@ class QuestionForm(forms.ModelForm):
   
 class SearchForm(forms.Form):
   search_word = forms.CharField(label="Search", max_length=100)
+
+class AnswerForm(forms.ModelForm):
+  answers = forms.CharField(max_length=300)  

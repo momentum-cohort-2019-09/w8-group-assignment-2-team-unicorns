@@ -1,0 +1,24 @@
+{% extends 'question_box/home.html' %}
+{% load static %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <div>
+        {% for field in form %}
+        <a href="/question_box/ questions.pk }}" style="text-decoration: none;">
+            <h3 class="question">Q:{{ question.title }}</h3>
+        </a>
+        <p class="description">D:{{ question.description }}</p>
+        <a class="author">Asked by:{{ question.author }}</a>
+        {% endfor %}
+    </div>
+
+
+</form>
+
+
+
+{% endblock %}
