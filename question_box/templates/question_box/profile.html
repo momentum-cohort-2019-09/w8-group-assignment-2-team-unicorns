@@ -1,19 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'profile.css' %}">
+  <title>Document</title>
+</head>
+<body>
+  <div class="top-nav">
+    <p>Hello {{ user }}!</p>
+    <a href="{% url 'home_page' %}">Home</a>
+    <a href="question_box/account/">Account</a>
+    <a href="question_box/">Logout</a>
+  </div>
 
-{% extend 'base.html' %}
+  <form class="search">
+    <input type="text" placeholder="Search.." name="search">
+    <button type="submit">Search</button>
+  </form>
 
-{% block content %}
+  <div class="side-nav">My questions
+      <div>
+        {% for question in user.questions.all %}
+        <!-- <a href="/question_box/{{ answers.pk }}" style="text-decoration: none;"> -->
+          <a href="{% url 'question_answers' pk=question.pk %}" style="text-decoration: none;">
+          <h3 class=“question”>Q:{{ question.title }}</h3>
+        </a>
+        <p class=“description”>D:{{ question.description }}</p>
+        <a class=“author”>Asked by:{{ question.author }}</a>
 
-<nav class="nav-bar">
-  Hello {{ user }}!
-  <a href="question_box/account/">Account</a>
-  <a href="question_box/index.html/">Logout</a>
-</nav>
+        {% endfor %}
+      </div>
+  </div>
 
-<h2>Search</h2>
-
-<h3>Ask a question</h3>
-
+  <button type="submit" class="add-question">Ask a question</button>
+  
+</body>
+</html>
 
 
-{% endblock %}
 
