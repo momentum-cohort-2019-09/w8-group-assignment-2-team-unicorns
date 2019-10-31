@@ -10,9 +10,6 @@ class Question(models.Model):
     author = models.ForeignKey(to='User', on_delete=models.CASCADE, blank=True, related_name="questions", null=True)
     title = models.CharField(max_length=100) 
     description = models.TextField()
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    uprdated_at = models.DateTimeField(auto_now=True)
     
     def ___str___(self):
         return self.title

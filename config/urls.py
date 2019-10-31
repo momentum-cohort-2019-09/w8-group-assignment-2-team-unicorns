@@ -18,8 +18,11 @@ from django.urls import path, include
 from question_box import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('registration.backends.default.urls')),
-    path('accounts/profile/', views.profile_page, name='profile_page'),
-    path('', views.home_page, name='home_page'), 
+   path('accounts/', include('registration.backends.default.urls')),
+   path('', views.home_page, name='home_page'),
+   path('accounts/profile/', views.profile_page, name='profile_page'),
+   path('question_box/<int:pk>/question_answers/',views.question_answers, name= 'question_answers'),
+   path('admin/', admin.site.urls),
 ]
+
+

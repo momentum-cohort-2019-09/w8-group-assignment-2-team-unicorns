@@ -1,18 +1,37 @@
 {% load static %}
-{% extends 'question_box/home.html' %}
-
-{% block content%}
-  <h1>Welcome to Question Box {{ user }}!</h1>
-
-  <nav class="nav-bar">
-      <a href="question_box/account/">My Account</a>
-    </div>
-    <div class ="navbar"> 
-      <a href="{% url 'home_page' %}">Logout</a>
-    </div>
-  </nav>
-
-  <a href>Ask a question</a>
-{% endblock %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <link rel="stylesheet" href="{% static 'profile.css' %}">
+ <title>Document</title>
+</head>
+<body>
+ <div class="top-nav">
+   <p>Hello {{ user }}!</p>
+   <a href="{% url 'home_page' %}">Home</a>
+   <a href="question_box/account/">Account</a>
+   <a href="question_box/">Logout</a>
+ </div>
+ <form class="search">
+   <input type="text" placeholder="Search.." name="search">
+   <button type="submit">Search</button>
+ </form>
+ <div class="side-nav">My questions
+     <div>
+       {% for question in user.questions.all %}
+       <!-- <a href="/question_box/{{ answers.pk }}" style="text-decoration: none;"> -->
+         <a href="{% url 'question_answers' pk=question.pk %}" style="text-decoration: none;">
+         <h3 class=“question”>Q:{{ question.title }}</h3>
+       </a>
+       <p class=“description”>D:{{ question.description }}</p>
+       <a class=“author”>Asked by:{{ question.author }}</a>
+       {% endfor %}
+     </div>
+ </div>
+ <button type="submit" class="add-question">Ask a question</button>
+</body>
+</html>
 
