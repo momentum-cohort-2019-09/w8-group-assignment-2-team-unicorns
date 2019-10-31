@@ -1,19 +1,18 @@
+{% load static %}
+{% extends 'question_box/home.html' %}
 
-{% extend 'base.html' %}
+{% block content%}
+  <h1>Welcome to Question Box {{ user }}!</h1>
 
-{% block content %}
+  <nav class="nav-bar">
+      <a href="question_box/account/">My Account</a>
+    </div>
+    <div class ="navbar"> 
+      <a href="{% url 'home_page' %}">Logout</a>
+    </div>
+  </nav>
 
-<nav class="nav-bar">
-  Hello {{ user }}
-  <a href="question_box/account/">Account</a>
-  <a href="question_box/index.html/">Logout</a>
-</nav>
-
-<h2>Search</h2>
-
-<h3>Ask a question</h3>
-
-
-
+  <a href>Ask a question</a>
 {% endblock %}
+
 
