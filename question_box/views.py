@@ -40,14 +40,26 @@ def question_render(request, pk):
  else:
      form = QuestionForm()
  return render(request, "question_box/profile.html", {"form": form})
- 
-def question_answers(request, pk):
- allanswers = Answer.objects.filter(question_id=pk)
- if request.method =="POST":
-     form = AnswerForm(request.POST)
-     if form.is_valid():
-         answer = form.save()
-         return render(request, "question_box/question_answers.html", {"form": form})
- else:
-     form = AnswerForm()
- return render(request, "question_box/question_answers.html", {"form": form})
+
+
+def question_answers(request, pk): 
+  allanswers = Answer.objects.filter(question_id=pk)
+  if request.method =="POST":
+    form = AnswerForm(request.POST)
+    if form.is_valid():
+      answer = form.save()
+      return render(request, "question_box/question_answers.html", {"form": form})
+  else:
+    form = AnswerForm()
+  return render(request, "question_box/question_answers.html", {"form": form})
+
+
+def add_answers(request, pk):
+  if request.method == "POST":  
+    form = AnswerForm(request.POST)
+    if form.is_valid():
+      answer = form.save()
+      return render(request, "question_box/question_answers.html", {"form": form})
+  else:
+    form = AnswerForm()
+  return render(request, "question_box/question_answers.html", {"form": form})
