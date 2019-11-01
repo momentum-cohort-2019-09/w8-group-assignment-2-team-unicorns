@@ -1,19 +1,44 @@
-
-{% extend 'base.html' %}
+{% extends 'question_box/home.html' %}
+{% load static %}
 
 {% block content %}
+<h1>Question Box Profile</h1> 
 
-<nav class="nav-bar">
-  Hello {{ user }}
-  <a href="question_box/account/">Account</a>
-  <a href="question_box/index.html/">Logout</a>
-</nav>
+<nav>
+    <div class = "navbar">
+      <a href="{% url 'home_logged_in' %}">Home</a>
+    </div>
+    <div class = "navbar">
+      <a href="{% url 'profile_page' %}">My Profile</a>
+    </div>
+    <div class = "navbar">
+      <a href>My Favorites</a>
+    </div>
+    <div class = "navbar">
+      <a href="{% url 'auth_logout' %}">Logout</a>
+    </div>
+</nav> 
 
-<h2>Search</h2>
+<div class=“posting”>
+  <div>
+    <h3>Post a question</h3>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type=“submit”>Post</button>
+    </form>
+  </div>
+</div>
 
-<h3>Ask a question</h3>
 
-
+<div class = questions>
+  {% for question in user.questions.all %}
+  <a href="{% url 'question_answers' pk=question.pk %}" style="text-decoration: none;">
+    <h3 class=“question”>Q:{{ question.title }}</h3>
+  </a>
+<p class=“description”>D: {{ question.description }}</p>
+<p>{{question.created_at}}</p>
+  {% endfor %}
+</div>
 
 {% endblock %}
-
