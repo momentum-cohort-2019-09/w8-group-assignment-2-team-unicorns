@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+​
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Question Box</title>
 </head>
+​
 <body>
-  
   <div>
     <h3>{{ question.title }}</h3>
-    <p class=“note_body”>{{ question.description }}</p>
- </div>
- <div>
+    <p>{{ question.description }}</p>
+  </div>
+  <div>
     {% for answer in question.answers.all %}
-    <a href=“/question_box/{{ question.pk }}” style="text-decoration: none;">
-      <h1 id=“title”>{{ answer }}</h1>
-    </a>
-    </li>
+    <p id=“title”>{{ answer }}</p>
+    <p>{{ answer.author }}</p>
+    <p>Answered on: {{ answer.created_at }}</p>
+​
     {% endfor %}
- </div>
-
+  </div>
+  <div>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form }}
+​
+      <button type="submit">Add Answer</button>
+​
+    </form>
+  </div>
 </body>
+​
 </html>
+
+
+
+
+

@@ -18,14 +18,25 @@ def home_page(request):
 @login_required
 def profile_page(request):
   user = request.user
-  return render(request, "question_box/profile.html", {"user": user})
+  if request.method == 'POST':
+    form = QuestionForm(request.POST)
+    if form.is_valid():
+      question = form.save(commit=False)
+      question.author = user
+      question = form.save()
+      return redirect(to='profile_page')   
+  else:
+    form = QuestionForm()
+        
+    return render(request, "question_box/profile.html", {"user": user, "form": form})
+
 
 def question_create(request):
   if request.method == 'POST':
     form = QuestionForm(request.POST)
     if form.is_valid():
       question = form.save()
-      return redirect(to=profile_page)
+      return redirect(to='profile_page')
   else:
     form = QuestionForm()
 
@@ -43,12 +54,26 @@ def question_render(request, pk):
   return render(request, "question_box/profile.html", {"form": form}) 
 
 def question_answers(request, pk):
-  allanswers = Answer.objects.filter(question_id=pk)
-  if request.method =="POST":
+    question = Question.objects.get(pk=pk)
+    allanswers = question.answers.all()
+    if request.method =="POST":
       form = AnswerForm(request.POST)
       if form.is_valid():
-          answer = form.save()
-          return render(request, "question_box/question_answers.html", {"form": form})
-  else:
+        answer = form.save(commit=False)
+        answer.author = request.user
+        answer.question = question
+        answer.save()
+        return redirect(to='question_answers', pk=pk)
+    else:
       form = AnswerForm()
+    return render(request, "question_box/question_answers.html", {"question": question, "answers": allanswers, "form": form})
+
+def add_new_answer(request, pk):
+  if request.method == "POST":  
+    form = AnswerForm(request.POST)
+    if form.is_valid():
+      answer = form.save()
+      return render(request, "question_box/question_answers.html", {"form": form})
+  else:
+    form = AnswerForm()
   return render(request, "question_box/question_answers.html", {"form": form}) 
