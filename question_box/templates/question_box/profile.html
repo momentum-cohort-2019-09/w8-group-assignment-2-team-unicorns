@@ -22,7 +22,7 @@
 <div class=“posting”>
   <div>
     <h3>Post a question</h3>
-    <form action=“” method=“POST”>
+    <form action="" method="POST">
       {% csrf_token %}
       {{ form.as_p }}
       <button type=“submit”>Post</button>
