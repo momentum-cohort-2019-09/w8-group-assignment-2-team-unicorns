@@ -1,34 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-​
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Question Box</title>
-</head>
-​
-<body>
-    <div>
-        <h3>{{ question.title }}</h3>
-        <p>{{ question.description }}</p>
+{% extends 'question_box/home.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Question Box Profile</h1> 
+
+<nav>
+    <div class = "navbar">
+        <a href="{% url 'home_logged_in' %}">Home</a>
     </div>
-    <div>
-        {% for answer in question.answers.all %}
-        <p id=“title”>{{ answer }}</p>
-        <p>{{ answer.author }}</p>
-​
-        {% endfor %}
+    <div class = "navbar">
+        <a href="{% url 'profile_page' %}">Account</a>
     </div>
-    <div>
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{ form }}
-​
-            <button type="submit">Add Answer</button>
-​
-        </form>
+    <div class = "navbar">
+        <a href="{% url 'auth_logout' %}">Logout</a>
     </div>
-</body>
+</nav>  
+
+<div>
+    <h3>{{ question.title }}</h3>
+    <p>{{ question.description }}</p>
+</div>
+<div>
+    {% for answer in question.answers.all %}
+    <p id=“title”>{{ answer }}</p>
+    <p>{{ answer.author }}</p>
+    <p>{{question.created_at}}</p>
+    {% endfor %}
+</div>
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
 ​
-</html>
+        <button type="submit">Add Answer</button>
+​
+    </form>
+</div>
+{% endblock %}
+​

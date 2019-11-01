@@ -11,20 +11,47 @@ h1 {
     color: white; 
 }
 
+h2 {
+    text-align: center; 
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    color: white; 
+}
+
+.search {
+    margin: 10px 40px; 
+    color: white; 
+}
+
 nav {
     display: flex; 
     justify-content: space-evenly;
 }
 
-body {
-    background-color: #E98D48; 
+.navbar {
+    color: red; 
 }
 
-.question {
-    background-color: white; 
+body {
+    background-color: #D096EB; 
+}
+
+.questions {
+    background-color: white;
+    margin: 10px 20px ;  
+    border-radius: 10px;
+    padding: 100px; 
 }
 
 a {
     text-decoration: none;
-    color: white; 
+    padding: 30px; 
+}
+
+.question-a{
+    margin-bottom: 20px; 
+}
+
+.posting {
+    margin: 30px; 
 }
