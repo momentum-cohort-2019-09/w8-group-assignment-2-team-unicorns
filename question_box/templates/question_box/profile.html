@@ -1,37 +1,48 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang=“en”>
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <link rel="stylesheet" href="{% static 'profile.css' %}">
+ <meta charset=“UTF-8">
+ <meta name=“viewport” content=“width=device-width, initial-scale=1.0">
+ <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
+ <link rel = "stylesheet" href="{% static 'style.css' %}">
+ <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
  <title>Document</title>
 </head>
+
 <body>
- <div class="top-nav">
-   <p>Hello {{ user }}!</p>
-   <a href="{% url 'home_page' %}">Home</a>
-   <a href="question_box/account/">Account</a>
-   <a href="question_box/">Logout</a>
+ <h1>Question Box Profile</h1> 
+ <div class=“top-nav”>
+  
+   <a href="{% url 'home_logged_in' %}">Home</a>
+   <a href="{% url 'profile_page' %}">Account</a>
+   <a href>Logout</a>
  </div>
- <form class="search">
-   <input type="text" placeholder="Search.." name="search">
-   <button type="submit">Search</button>
+
+ <form class=“search”>
+   <input type=“text” placeholder=“Search..” name=“search”>
+   <button type=“submit”>Search</button>
  </form>
- <div class="side-nav">My questions
-     <div>
-       {% for question in user.questions.all %}
-       <!-- <a href="/question_box/{{ answers.pk }}" style="text-decoration: none;"> -->
-         <a href="{% url 'question_answers' pk=question.pk %}" style="text-decoration: none;">
-         <h3 class=“question”>Q:{{ question.title }}</h3>
-       </a>
-       <p class=“description”>D:{{ question.description }}</p>
-       <a class=“author”>Asked by:{{ question.author }}</a>
-       {% endfor %}
-     </div>
+ <div class=“side-nav”>
+   <div>
+     <h3>Post a question</h3>
+     <form action=“” method=“POST”>
+       {% csrf_token %}
+       {{ form.as_p }}
+       <!-- <h3 class=“question-title”>{{ title }}</h3>
+       <p class=“description”>{{ field.description }}</p> -->
+       <button type=“submit”>Post</button>
+     </form>
+   </div>
+   <div>
+     {% for question in user.questions.all %}
+     <a href="{% url 'question_answers' pk=question.pk %}" style="text-decoration: none;">
+       <h3 class=“question”>Q:{{ question.title }}</h3>
+     </a>
+     <p class=“description”>D:{{ question.description }}</p>
+     <a class=“author”>Asked by:{{ question.author }}</a>
+     {% endfor %}
+   </div>
  </div>
- <button type="submit" class="add-question">Ask a question</button>
 </body>
 </html>
-
