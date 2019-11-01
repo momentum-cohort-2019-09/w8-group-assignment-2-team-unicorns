@@ -1,15 +1,52 @@
-{% block content %}
+{% load static %}
 
-<nav class="nav-bar">
-  Hello {{ user }}
-  <a href="question_box/account/">Account</a>
-  <a href="question_box/index.html/">Logout</a>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
 
-<h2>Search</h2>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'profile.css' %}">
+  <title>Document</title>
+</head>
 
-<h3>Ask a question</h3>
+<body>
+  <div class="top-nav">
+    <p>Hello {{ user }}!</p>
+    <a href="{% url 'home_page' %}">Home</a>
+    <a href="{% url 'profile_page' %}">Account</a>
+    <a href="question_box/">Logout</a>
+  </div>
+  <form class="search">
+    <input type="text" placeholder="Search.." name="search">
+    <button type="submit">Search</button>
+  </form>
+  <div class="side-nav">
+    <div>
+      <h3>Post a question</h3>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
 
 
+        <button type="submit">Post</button>
+      </form>
+    </div>
 
-{% endblock %}
+    <div>
+      {% for question in user.questions.all %}
+      <a href="{% url 'question_answers' pk=question.pk %}" style="text-decoration: none;">
+        <h3 class=“question”>Q:{{ question.title }}</h3>
+      </a>
+      <p class=“description”>D:{{ question.description }}</p>
+      <a class=“author”>Asked by:{{ question.author }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+
+</body>
+
+</html>

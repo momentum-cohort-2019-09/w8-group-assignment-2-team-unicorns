@@ -1,25 +1,50 @@
-{% extends 'question_box/home.html' %}
+{% load markdownify %}
 {% load static %}
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
 
-<div>
-    <h3>{{ question.title }}</h3>
-    <p class="note_body">{{ question.description|markdownify }}</p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Question Box</title>
+</head>
 
-<div>
+<body>
+    <div class="top-nav">
+        <p>Hello {{ user }}!</p>
+        <a href="{% url 'home_page' %}">Home</a>
+        <a href="{% url 'profile_page' %}">Account</a>
+        <a href="question_box/">Logout</a>
+    </div>
+    <form action="" method="GET">
+        <label for="search">Search</label>
+        <input type="search" id="search" name="search">
+        <button type="submit">Search</button>
+    </form>
+    <div>
+        <h3>{{ question.title }}</h3>
+        <p>{{ question.description }}</p>
+    </div>
+    <div>
+        {% for answer in question.answers.all %}
+        <p id=“title”>{{ answer }}</p>
+        <p>{{ answer.author }}</p>
+        <p>{{ answer.created_at }}</p>
+        <p>{{ answer.updated_at }}</p>
 
-    {% for answer in question.answers.all %}
+        {% endfor %}
+    </div>
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form }}
 
-    <a href="/question_box/ question.pk }}" style="text-decoration: none;">
-        <h1 id="title">{{ answer }}</h1>
+            <button type="submit">Add Answer</button>
 
-    </a>
-    </li>
+        </form>
+    </div>
+</body>
 
-    {% endfor %}
-    </ul>
-</div>
-
-{% endblock %}
+</html>

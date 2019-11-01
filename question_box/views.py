@@ -1,65 +1,77 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from question_box.models import User, Question, Answer
-from  question_box.forms import SearchForm
+from question_box.forms import QuestionForm, AnswerForm
 
-# Create your views here.
 
-def profile_page(request):
-  page = request.page
-  return render(request, "question_box/profile.html", {"page": page})
-  
+def home_page(request):
+    all_question = Question.objects.all()
+    search_term = request.GET.get('search')
+
+    if search_term:
+        questions=questions.filter(
+            Q(description__icontains=request.search_term) |
+            Q(title__icontains=request.search_term) |
+            Q(author__icontains=request.search_term))
+
+    return render(request, "question_box/home.html", {
+        "all_question": all_question,
+    })
+
 @login_required
-def login_view(request): 
+def profile_page(request):
     user = request.user
-    return render(request, "question_box/profile.html", {"user": user})
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.author = user
+            question = form.save()
+
+
+            return redirect(to='profile_page')   
+
+    else:
+        form = QuestionForm()
+        
+    return render(request, "question_box/profile.html", {"user": user, "form": form})
 
 
 
-def questions(request):
+def question_render(request, pk):
+    
     allquestions = Question.objects.filter(author=request.user)
     if request.method =="POST":
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save()
 
-            return redirect(to='profile')
+            return redirect(to='profile', pk=allquestions.pk)
     else:
         form = QuestionForm()
 
-    return render(request, "question_box/questions.html", {"form": form}) 
-
-def question_answers(request):
-    allanswers = Answer.objects.all()
-    if request.method =="POST":
-        form = AnswerForm(request.POST)
-        if form.is_valid():
-            question = form.save()
-
-            return redirect(to='question_answers')
-    else:
-        form = QuestionForm()
-
-    return render(request, "question_box/question_answers.html", {"form": form}) 
-
-     
+    return render(request, "question_box/profile.html", {"form": form})
 
 def question_answers(request, pk):
     question = Question.objects.get(pk=pk)
-    return render(request, "question_box/question_answers.html",
-                  {"question": question}) 
-        
+    allanswers = question.answers.all()
+    if request.method =="POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.author = request.user
+            answer.question = question
+            answer.save()
+            return redirect(to='question_answers', pk=pk)
+           
+    else:
+        form = AnswerForm()
 
-# def home(request): 
-#     all_questions = Question.objects.all()
-#     if request.method =="POST":
-#         form = SearchForm(request.POST)
-#         if form.is_valid():
-#             search_word = form.cleaned_data['search_word'].lower()
-#             all_questions = all_questions.filter(title__icontains=search_word)
-#     else:
-#         form = SearchForm()
-#     return render(request, "question_box/home.html", {
-#         "question": all_questions,
-#         "form": form,
-#     })
+    return render(request, "question_box/question_answers.html", {"question": question, "answers": allanswers, "form": form})
+
+
+    
+
+
+
+
