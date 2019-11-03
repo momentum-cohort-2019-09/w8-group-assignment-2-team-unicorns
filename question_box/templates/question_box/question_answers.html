@@ -1,40 +1,55 @@
-{% extends 'question_box/home.html' %}
+{% extends 'question_box/profile.html' %}
 {% load static %}
 
-{% block content %}
-<h1>Question Box Profile</h1> 
 
+{% block content %}
+<h1> Question Box </h1> 
 <nav>
     <div class = "navbar">
-        <a href="{% url 'home_logged_in' %}">Home</a>
+        <a href="{% url 'home_logged_in' %}" class = "navbar">Home</a>
     </div>
     <div class = "navbar">
-        <a href="{% url 'profile_page' %}">Account</a>
+        <a href="{% url 'profile_page' %}" class = "navbar">My Profile</a>
     </div>
     <div class = "navbar">
-        <a href="{% url 'auth_logout' %}">Logout</a>
+        <a href="{% url 'auth_logout' %}" class = "navbar">Logout</a>
     </div>
-</nav>  
+</nav> 
 
-<div>
-    <h3>{{ question.title }}</h3>
-    <p>{{ question.description }}</p>
-</div>
-<div>
-    {% for answer in question.answers.all %}
-    <p id=“title”>{{ answer }}</p>
-    <p>{{ answer.author }}</p>
-    <p>{{question.created_at}}</p>
-    {% endfor %}
-</div>
-<div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form }}
-​
-        <button type="submit">Add Answer</button>
-​
-    </form>
+<div class = "quest" style = 
+    "border-radius: 10px; 
+    background-color: white; 
+    padding: 10px; 
+    margin: 30px;
+    ">
+
+    <div class = "question-box">
+        <h3>Q: {{ question.title }}</h3>
+        <div> 
+            <h5>Description: </h5>
+            <h6>{{ question.description }}</h6>
+            <h6>Asked By: {{ question.author }}</h6>
+        </div>
+        <div>
+            {% for answer in question.answers.all %}
+            <p id=“title”>{{ answer }}</p>
+            <p>Answered By: {{ answer.author }}</p>
+            <p>{{question.created_at}}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class = "question-box">
+        <div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form }}
+        ​
+                <button type="submit">Add Answer</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
 ​

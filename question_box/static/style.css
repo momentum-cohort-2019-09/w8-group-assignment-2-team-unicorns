@@ -9,6 +9,7 @@ h1 {
     text-align: center; 
     margin-bottom: 20px; 
     color: white; 
+    letter-spacing: 10px; 
 }
 
 h2 {
@@ -18,6 +19,9 @@ h2 {
     color: white; 
 }
 
+.h6 {
+    margin-bottom: 50px; 
+}
 .search {
     margin: 10px 40px; 
     color: white; 
@@ -28,30 +32,60 @@ nav {
     justify-content: space-evenly;
 }
 
-.navbar {
-    color: red; 
-}
-
 body {
     background-color: #F2E0B0; 
-}
-
-.questions {
-    background-color: white;
-    margin: 10px 20px ;  
-    border-radius: 10px;
-    padding: 100px; 
 }
 
 a {
     text-decoration: none;
     padding: 30px; 
+    color: #F3B187; 
 }
 
-.question-a{
-    margin-bottom: 20px; 
+a:hover {
+    text-decoration: none;
+    color: yellow; 
 }
 
 .posting {
-    margin: 30px; 
+    margin: 40px; 
+    display: flex; 
+    justify-content: space-evenly;
+}
+
+.questions {
+    background-color: white;
+    margin: 10px;  
+    border-radius: 10px;
+    padding: 20px; 
+}
+
+.navbar {
+    color: white; 
+}
+
+.navbar:hover {
+    color: #F3C487; 
+    text-decoration: none;
+}
+
+.check-mark {
+	background-image: url('../static/images/check-solid.svg');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	height: 41px;
+	width: 41px;
+	display: none;
+}
+
+.always-visibile-check-mark {
+	background-image: url('../static/images/check-solid.svg');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	height: 41px;
+	width: 41px;
 }
