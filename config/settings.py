@@ -129,4 +129,4 @@ LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-EMAIL_BACKEND = 'django.core.mail.backends.cosole.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
