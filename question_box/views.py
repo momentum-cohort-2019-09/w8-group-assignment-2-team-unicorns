@@ -9,16 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def home_page(request):
- all_question = Question.objects.all()
- search_term = request.GET.get('search')
- if search_term:
-   questions=questions.filter(
-    Q(description__icontains=request.search_term) |
-    Q(title__icontains=request.search_term) |
-    Q(author__icontains=request.search_term))
- return render(request, "question_box/home.html", {
-   "all_question": all_question,
- })
+  user = request.user
+  return render(request, "question_box/home.html", {"user": user})
 
 @login_required
 @csrf_exempt
@@ -66,6 +58,7 @@ def question_render(request, pk):
  return render(request, "question_box/profile.html", {"form": form})
 
 @csrf_exempt
+@login_required 
 def question_answers(request, pk): 
   question = Question.objects.get(pk=pk)
   allanswers = question.answers.all()
