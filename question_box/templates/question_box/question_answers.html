@@ -5,51 +5,91 @@
 {% block content %}
 <h1> Question Box </h1> 
 <nav>
-    <div class = "navbar">
-        <a href="{% url 'home_logged_in' %}" class = "navbar">Home</a>
+    <div class="navbar">
+        <a href="{% url 'home_logged_in' %}">Home</a>
     </div>
-    <div class = "navbar">
-        <a href="{% url 'profile_page' %}" class = "navbar">My Profile</a>
+    <div class="navbar">
+        <a href="{% url 'profile_page' %}">Account</a>
     </div>
-    <div class = "navbar">
-        <a href="{% url 'auth_logout' %}" class = "navbar">Logout</a>
+    <div class="navbar">
+        <a href="{% url 'auth_logout' %}">Logout</a>
     </div>
-</nav> 
+</nav>
 
-<div class = "quest" style = 
-    "border-radius: 10px; 
-    background-color: white; 
-    padding: 10px; 
-    margin: 30px;
-    ">
+<div>
+    <h3>{{ question.title }}</h3>
+    <p>{{ question.description }}</p>
+</div>
+<div>
+    {% if question.answers.count %}
+    {% if question.is_solved %}
 
-    <div class = "question-box">
-        <h3>Q: {{ question.title }}</h3>
-        <div> 
-            <h5>Description: </h5>
-            <h6>{{ question.description }}</h6>
-            <h6>Asked By: {{ question.author }}</h6>
-        </div>
-        <div>
-            {% for answer in question.answers.all %}
-            <p id=“title”>{{ answer }}</p>
-            <p>Answered By: {{ answer.author }}</p>
-            <p>{{question.created_at}}</p>
-            {% endfor %}
-        </div>
-    </div>
+    {% for answer in question.answers.all %}
+    {% if answer.correct %}
+
+    <div class="answer-info">
+        {% if request.user == question.author %}
+
+        <p class=“title”>{{ answer }}</p>
 
 
-    <div class = "question-box">
-        <div>
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{ form }}
+        <form action="{% url 'mark_correct' pk=question.pk %}">
+            {% csrf_token %}
+            <p class="always-visibile-check-mark"></p>
+
+        </form>
+        {% endif %}
+
+        <p>{{ answer.author }}</p>
+        <p>{{question.created_at}}</p>
+    </div>
+    {% else %}
+
+    <div class="answer-info">
+        {% if request.user == question.author %}
+
+        <p class=“title”>{{ answer }}</p>
+
+
+
+        {% endif %}
+
+        <p>{{ answer.author }}</p>
+        <p>{{question.created_at}}</p>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+    {% else %}
+
+    {% for answer in question.answers.all %}
+    <div class="answer-info">
+        {% if request.user == question.author %}
+
+        <p class=“title”>{{ answer }}</p>
+
+
+        <form action="{% url 'mark_correct' pk=question.pk %}">
+            {% csrf_token %}
+            <button class="correct-answer" type="button" data-answerid="{{ answer.pk }}">Correct Answer</button>
+            <p class="check-mark"></p>
+        </form>
+        {% endif %}
+
+        <p>{{ answer.author }}</p>
+        <p>{{question.created_at}}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endif %}
+</div>
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
         ​
-                <button type="submit">Add Answer</button>
-            </form>
-        </div>
-    </div>
+        <button type="submit">Add Answer</button>
+        ​
+    </form>
 </div>
 {% endblock %}
-​
