@@ -129,7 +129,7 @@ LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.cosole.EmailBackend'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'statics'),

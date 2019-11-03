@@ -1,3 +1,7 @@
+console.log('I am javascript')
+
+
+
 let all_correct_buttons = document.querySelectorAll('.correct-answer')
 for (let correct_button of all_correct_buttons) {
     correct_button.addEventListener('click', event => {
