@@ -1,40 +1,100 @@
 {% extends 'question_box/home.html' %}
 {% load static %}
 
+<script defer src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
+<link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+
 {% block content %}
-<h1>Question Box Profile</h1> 
+<h1>Question Box Profile</h1>
 
 <nav>
-    <div class = "navbar">
+    <div class="navbar">
         <a href="{% url 'home_logged_in' %}">Home</a>
     </div>
-    <div class = "navbar">
+    <div class="navbar">
         <a href="{% url 'profile_page' %}">Account</a>
     </div>
-    <div class = "navbar">
+    <div class="navbar">
         <a href="{% url 'auth_logout' %}">Logout</a>
     </div>
-</nav>  
+</nav>
 
 <div>
     <h3>{{ question.title }}</h3>
     <p>{{ question.description }}</p>
 </div>
 <div>
+    {% if question.answers.count %}
+    {% if question.is_solved %}
+
     {% for answer in question.answers.all %}
-    <p id=“title”>{{ answer }}</p>
-    <p>{{ answer.author }}</p>
-    <p>{{question.created_at}}</p>
+    {% if answer.correct %}
+
+    <div class="answer-info">
+        {% if request.user == question.author %}
+
+        <p class=“title”>{{ answer }}</p>
+
+
+        <form action="{% url 'mark_correct' pk=question.pk %}">
+            {% csrf_token %}
+            <p class="always-visibile-check-mark"></p>
+
+        </form>
+        {% endif %}
+
+        <p>{{ answer.author }}</p>
+        <p>{{question.created_at}}</p>
+    </div>
+    {% else %}
+
+    <div class="answer-info">
+        {% if request.user == question.author %}
+
+        <p class=“title”>{{ answer }}</p>
+
+
+
+        {% endif %}
+
+        <p>{{ answer.author }}</p>
+        <p>{{question.created_at}}</p>
+    </div>
+
+    {% endif %}
     {% endfor %}
+    {% else %}
+
+    {% for answer in question.answers.all %}
+    <div class="answer-info">
+        {% if request.user == question.author %}
+
+        <p class=“title”>{{ answer }}</p>
+
+
+        <form action="{% url 'mark_correct' pk=question.pk %}">
+            {% csrf_token %}
+            <button class="correct-answer" type="button" data-answerid="{{ answer.pk }}">Correct Answer</button>
+            <p class="check-mark"></p>
+        </form>
+        {% endif %}
+
+        <p>{{ answer.author }}</p>
+        <p>{{question.created_at}}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endif %}
 </div>
 <div>
     <form action="" method="POST">
         {% csrf_token %}
         {{ form }}
-​
+        ​
         <button type="submit">Add Answer</button>
-​
+        ​
     </form>
 </div>
 {% endblock %}
-​

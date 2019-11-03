@@ -1,57 +1,76 @@
 * {
-    font-family: 'Oxygen', sans-serif;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	font-family: 'Oxygen', sans-serif;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 h1 {
-    text-align: center; 
-    margin-bottom: 20px; 
-    color: white; 
+	text-align: center;
+	margin-bottom: 20px;
+	color: white;
 }
 
 h2 {
-    text-align: center; 
-    margin-top: 20px; 
-    margin-bottom: 20px; 
-    color: white; 
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: white;
 }
 
 .search {
-    margin: 10px 40px; 
-    color: white; 
+	margin: 10px 40px;
+	color: white;
 }
 
 nav {
-    display: flex; 
-    justify-content: space-evenly;
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .navbar {
-    color: red; 
+	color: red;
 }
 
 body {
-    background-color: #F2E0B0; 
+	background-color: #f2e0b0;
 }
 
 .questions {
-    background-color: white;
-    margin: 10px 20px ;  
-    border-radius: 10px;
-    padding: 100px; 
+	background-color: white;
+	margin: 10px 20px;
+	border-radius: 10px;
+	padding: 100px;
 }
 
 a {
-    text-decoration: none;
-    padding: 30px; 
+	text-decoration: none;
+	padding: 30px;
 }
 
-.question-a{
-    margin-bottom: 20px; 
+.question-a {
+	margin-bottom: 20px;
 }
 
 .posting {
-    margin: 30px; 
+	margin: 30px;
+}
+.check-mark {
+	background-image: url('../static/images/check-solid.svg');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	height: 41px;
+	width: 41px;
+	display: none;
+}
+.always-visibile-check-mark {
+	background-image: url('../static/images/check-solid.svg');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	height: 41px;
+	width: 41px;
 }
