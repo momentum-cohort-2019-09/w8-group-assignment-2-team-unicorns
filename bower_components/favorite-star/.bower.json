@@ -1,0 +1,34 @@
+{
+  "name": "favorite-star",
+  "version": "0.1.5",
+  "homepage": "https://github.com/argelius/favorite-star",
+  "authors": [
+    "Andreas Argelius <andreas@argeli.us>"
+  ],
+  "description": "Web Component element that displays a \"favorite star\".",
+  "keywords": [
+    "web-components"
+  ],
+  "main": "favorite-star.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "~0.6.1"
+  },
+  "_release": "0.1.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.5",
+    "commit": "18497cdfe442f323dac85a618087305f74a45166"
+  },
+  "_source": "https://github.com/argelius/favorite-star.git",
+  "_target": "^0.1.5",
+  "_originalSource": "favorite-star",
+  "_direct": true
+}

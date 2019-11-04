@@ -5,18 +5,12 @@ from question_box.models import User, Question, Answer
 from question_box.forms import QuestionForm, AnswerForm
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
+@csrf_exempt
 def home_page(request):
- all_question = Question.objects.all()
- search_term = request.GET.get('search')
- if search_term:
-   questions=questions.filter(
-    Q(description__icontains=request.search_term) |
-    Q(title__icontains=request.search_term) |
-    Q(author__icontains=request.search_term))
- return render(request, "question_box/home.html", {
-   "all_question": all_question,
- })
+  user = request.user
+  return render(request, "question_box/home.html", {"user": user})
 
 @login_required
 def profile_page(request):
@@ -33,34 +27,37 @@ def profile_page(request):
     form = QuestionForm()
       
   return render(request, "question_box/profile.html", {"user": user, "form": form})
-
+  
+@csrf_exempt
 @login_required
 def home_logged_in(request): 
   questions = Question.objects.all()
   return render(request, "question_box/home_logged_in.html", {"questions": questions})
 
-
+@csrf_exempt
 def question_create(request):
  if request.method == 'POST':
    form = QuestionForm(request.POST)
    if form.is_valid():
      question = form.save()
-     return redirect(to=profile_page)
+     return redirect(to='profile_page')
  else:
    form = QuestionForm()
  return render(request, "question_box/profile.html", {"form": form})
 
+@csrf_exempt
 def question_render(request, pk):
  allquestions = Question.objects.filter(author=request.user)
  if request.method =="POST":
      form = QuestionForm(request.POST)
      if form.is_valid():
          question = form.save()
-         return redirect(to='profile', pk=allquestions.pk)
+         return redirect(to='profile_page', pk=allquestions.pk)
  else:
      form = QuestionForm()
  return render(request, "question_box/profile.html", {"form": form})
 
+@login_required 
 def question_answers(request, pk): 
   question = Question.objects.get(pk=pk)
   allanswers = question.answers.all()
@@ -93,4 +90,14 @@ def toggle_favorite_question(request, pk):
     request.user.starred_questions.add(question)
     is_favorite = True
   return JsonResponse({"ok": True, "is_favorite": is_favorite})
+
+@csrf_exempt
+def mark_correct(request, pk):
+    answer = Answer.objects.get(pk=pk)
+    question = answer.question
+    answer.correct = True
+    answer.question.is_solved = True
+    answer.save()
+    answer.question.save()
+    return JsonResponse({"correct": True })
 

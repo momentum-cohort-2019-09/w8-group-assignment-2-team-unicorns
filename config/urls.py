@@ -21,10 +21,10 @@ urlpatterns = [
    path('accounts/', include('registration.backends.default.urls')),
    path('', views.home_page, name='home_page'),
    path('accounts/home_logged_in/', views.home_logged_in, name='home_logged_in'),
-   path('accounts/profile/', views.profile_page, name='profile_page'),
+   path('accounts/profile_page/', views.profile_page, name='profile_page'),
    path('question_box/<int:pk>/question_answers/',views.question_answers, name= 'question_answers'),
    path('question_box/<int:pk>/favorite', views.toggle_favorite_question, name="toggle_favorite_question"),
+   path('question_box/<int:pk>/mark_correct/', views.mark_correct, name='mark_correct'),
    path('admin/', admin.site.urls),
 ]
-
 
