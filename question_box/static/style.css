@@ -44,8 +44,7 @@ body {
 }
 
 a {
-    text-decoration: none;
-    padding: 30px; 
+    text-decoration: none; 
 }
 
 .question-a{
@@ -54,4 +53,17 @@ a {
 
 .posting {
     margin: 30px; 
+}
+
+.favorite-star {
+    color: black;
+}
+
+.favorite-star:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }

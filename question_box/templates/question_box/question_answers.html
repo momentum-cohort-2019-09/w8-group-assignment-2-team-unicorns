@@ -22,10 +22,15 @@
 </div>
 <div>
     {% for answer in question.answers.all %}
-    <p id=“title”>{{ answer }}</p>
-    <p>{{ answer.author }}</p>
-    <p>{{question.created_at}}</p>
-    {% endfor %}
+    <div class=“answer-info”>
+       <p class=“title”>{{ answer }}</p>
+       {% if request.user.is_authenticated %}
+       <button id=“correct-answer” type=“button” value=“button” data-answerid=“{{ answer.pk }}“></button>
+       {% endif%}
+       <p>{{ answer.author }}</p>
+       <p>{{question.created_at}}</p>
+   </div>
+   {% endfor %}
 </div>
 <div>
     <form action="" method="POST">
