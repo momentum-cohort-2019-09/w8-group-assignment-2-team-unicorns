@@ -37,8 +37,8 @@
 
     <div class=questions>
         {% for question in questions %}
-        <div class = "question">
-            <a href ='{% url 'question_answers' question.pk %}>{{question.title}}</a>
+        <div class="question">
+            <a href="{% url 'question_answers' question.pk %}">{{question.title}}</a>
         </div>
         <div>
             <p>{{question.description}}</p>
