@@ -14,7 +14,6 @@ def home_page(request):
 
 @login_required
 @csrf_exempt
-@require_POST
 def profile_page(request):
   user = request.user
   if request.method == 'POST':
