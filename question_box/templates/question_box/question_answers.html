@@ -7,15 +7,15 @@
 <h1> Question Box </h1>
 <nav>
     <div class="navbar">
-      <a href="{% url 'home_logged_in' %}" class="navbar">Home</a>
+        <a href="{% url 'home_logged_in' %}">Home</a>
     </div>
     <div class="navbar">
-        <a href="{% url 'profile_page' %}">My Profile</a>
+        <a href="{% url 'profile_page' %}">Account</a>
     </div>
     <div class="navbar">
-      <a href="{% url 'auth_logout' %}" class="navbar">Logout</a>
+        <a href="{% url 'auth_logout' %}">Logout</a>
     </div>
-  </nav>
+</nav>
 
 <div>
     <h3>{{ question.title }}</h3>
@@ -64,17 +64,6 @@
     {% else %}
 
     {% for answer in question.answers.all %}
-
-    <div class=“answer-info”>
-       <p class=“title”>{{ answer }}</p>
-       {% if request.user.is_authenticated %}
-       <button id=“correct-answer” type=“button” value=“button” data-answerid=“{{ answer.pk }}“></button>
-       {% endif%}
-       <p>{{ answer.author }}</p>
-       <p>{{question.created_at}}</p>
-   </div>
-   {% endfor %}
-
     <div class="answer-info">
         {% if request.user == question.author %}
 
@@ -94,7 +83,6 @@
     {% endfor %}
     {% endif %}
     {% endif %}
-
 </div>
 <div>
     <form action="" method="POST">
