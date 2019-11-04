@@ -22,7 +22,9 @@ class Answer(models.Model):
     author = models.ForeignKey(to='User', on_delete=models.CASCADE, blank=True, related_name="answers", null=True)
     answer = models.TextField()
     correct = models.BooleanField(default=False)
-    
+
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(blank=True, null=True)
  
     def __str__(self):
         return self.answer

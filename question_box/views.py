@@ -7,7 +7,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-
+@csrf_exempt
 def home_page(request):
   user = request.user
   return render(request, "question_box/home.html", {"user": user})
@@ -27,30 +27,32 @@ def profile_page(request):
     form = QuestionForm()
       
   return render(request, "question_box/profile.html", {"user": user, "form": form})
-
+  
+@csrf_exempt
 @login_required
 def home_logged_in(request): 
   questions = Question.objects.all()
   return render(request, "question_box/home_logged_in.html", {"questions": questions})
 
-
+@csrf_exempt
 def question_create(request):
  if request.method == 'POST':
    form = QuestionForm(request.POST)
    if form.is_valid():
      question = form.save()
-     return redirect(to=profile_page)
+     return redirect(to='profile_page')
  else:
    form = QuestionForm()
  return render(request, "question_box/profile.html", {"form": form})
 
+@csrf_exempt
 def question_render(request, pk):
  allquestions = Question.objects.filter(author=request.user)
  if request.method =="POST":
      form = QuestionForm(request.POST)
      if form.is_valid():
          question = form.save()
-         return redirect(to='profile', pk=allquestions.pk)
+         return redirect(to='profile_page', pk=allquestions.pk)
  else:
      form = QuestionForm()
  return render(request, "question_box/profile.html", {"form": form})

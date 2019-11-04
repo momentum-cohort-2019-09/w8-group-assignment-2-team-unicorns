@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,38 +16,39 @@
 
 <body>
     
+
     {% block content %}
     <h1>Question Box</h1>
 
     <nav>
-        <div class = "navbar">
-            <a href="{% url 'home_logged_in' %}" class = "navbar">Home</a>
+        <div class="navbar">
+            <a href="{% url 'home_logged_in' %}" class="navbar">Home</a>
         </div>
         <div class = "navbar">
             <a href="{% url 'profile_page' %}" class = "navbar">My Profile</a>
         </div>
-        <div class = "navbar">
-            <a href="{% url 'auth_logout' %}" class = "navbar">Logout</a>
+        <div class="navbar">
+            <a href="{% url 'auth_logout' %}" class="navbar">Logout</a>
         </div>
-    </nav> 
-    
-    
+    </nav>
+
+
     <h2>Questions Forum</h2>
 
-    <div class = questions>
+    <div class=questions>
         {% for question in questions %}
         <div class = "question">
             <a href ='{% url 'question_answers' question.pk %}>{{question.title}}</a>
         </div>
         <div>
             <p>{{question.description}}</p>
-        </div> 
+        </div>
         <div>
             <p>{{question.created_at}}</p>
         </div>
-        <div class = "question-a">
+        <div class="question-a">
             <p>Asked By: {{question.author}}</p>
-        {% endfor %}    
+            {% endfor %}
         </div>
     </div>
     {% endblock %}

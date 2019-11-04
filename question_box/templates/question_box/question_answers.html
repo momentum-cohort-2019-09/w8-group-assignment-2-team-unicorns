@@ -1,9 +1,10 @@
 {% extends 'question_box/profile.html' %}
 {% load static %}
 
+<script src="{% static 'index.js' %}" defer></script>
 
 {% block content %}
-<h1> Question Box </h1> 
+<h1> Question Box </h1>
 <nav>
     <div class="navbar">
       <a href="{% url 'home_logged_in' %}" class="navbar">Home</a>
