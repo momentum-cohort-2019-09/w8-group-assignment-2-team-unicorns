@@ -74,14 +74,6 @@ def question_answers(request, pk):
     form = AnswerForm()
     return render(request, "question_box/question_answers.html", {"question": question, "answers": allanswers, "form": form})
 
-def delete_answer(request, pk):
-    answer = get_object_or_404(Note, pk=pk)         
-    if request.method == "POST":
-        answer.delete()
-        return redirect(to='question_answers')
-
-    return render(request, 'question_box/question_answers.html', {"answer":answer}) 
-
 @csrf_exempt
 def mark_correct(request, pk):
     answer = Answer.objects.get(pk=pk)
