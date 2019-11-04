@@ -13,8 +13,6 @@ def home_page(request):
   return render(request, "question_box/home.html", {"user": user})
 
 @login_required
-@csrf_exempt
-@require_POST
 def profile_page(request):
   user = request.user
   if request.method == 'POST':
@@ -57,7 +55,6 @@ def question_render(request, pk):
      form = QuestionForm()
  return render(request, "question_box/profile.html", {"form": form})
 
-@csrf_exempt
 @login_required 
 def question_answers(request, pk): 
   question = Question.objects.get(pk=pk)

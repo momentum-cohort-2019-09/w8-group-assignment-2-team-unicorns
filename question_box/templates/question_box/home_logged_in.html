@@ -13,10 +13,9 @@
   <title>Question Box</title>
 </head>
 
-
 <body>
     
-        {% block content %}
+    {% block content %}
     <h1>Question Box</h1>
 
     <nav>
@@ -24,7 +23,7 @@
             <a href="{% url 'home_logged_in' %}" class = "navbar">Home</a>
         </div>
         <div class = "navbar">
-            <a href="{% url 'profile_page' %}" class = "navbar">Account</a>
+            <a href="{% url 'profile_page' %}" class = "navbar">My Profile</a>
         </div>
         <div class = "navbar">
             <a href="{% url 'auth_logout' %}" class = "navbar">Logout</a>
@@ -37,7 +36,7 @@
     <div class = questions>
         {% for question in questions %}
         <div class = "question">
-            <a href ='{% url 'question_answers' question.pk %}'>{{question.title}}</a>
+            <a href ='{% url 'question_answers' question.pk %}>{{question.title}}</a>
         </div>
         <div>
             <p>{{question.description}}</p>
