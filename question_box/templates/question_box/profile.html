@@ -21,26 +21,6 @@
 display: flex; 
 justify-content: space-evenly;">
 
-  <div class="questions">
-    {% for question in user.questions.all %}
-    <a href="{% url 'question_answers' pk=question.pk %}" style="text-decoration: none;">
-      <h3 class=“question”>Q:{{ question.title }}</h3>
-    </a>
-    <p class=“description”>D: {{ question.description }}</p>
-    <p>{{question.created_at}}</p>
-    {% endfor %}
-  </div>
-
-  <div class="questions">
-    <div>
-      <h3>Post a question</h3>
-      <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type=“submit”>Post</button>
-      </form>
-    </div>
-  </div>
 
 <div class = "questions">
   {% for question in user.questions.all %}
@@ -59,6 +39,17 @@ justify-content: space-evenly;">
 <p>{{question.created_at}}</p>
   {% endfor %}
 
+</div>
+
+<div class="questions">
+  <div>
+    <h3>Post a question</h3>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type=“submit”>Post</button>
+    </form>
+  </div>
 </div>
 
 {% endblock %}
