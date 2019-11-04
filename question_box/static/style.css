@@ -60,13 +60,33 @@ a:hover {
 	padding: 20px;
 }
 
-.navbar {
-	color: white;
+
+a {
+    text-decoration: none; 
 }
+
 
 .navbar:hover {
 	color: #f3c487;
 	text-decoration: none;
+}
+
+
+.posting {
+    margin: 30px; 
+}
+
+.favorite-star {
+    color: black;
+}
+
+.favorite-star:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }
 
 .check-mark {
@@ -89,3 +109,4 @@ a:hover {
 	height: 41px;
 	width: 41px;
 }
+

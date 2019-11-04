@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from question_box.models import User, Question, Answer
 from question_box.forms import QuestionForm, AnswerForm
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 @csrf_exempt
@@ -72,6 +72,24 @@ def question_answers(request, pk):
   else:
     form = AnswerForm()
     return render(request, "question_box/question_answers.html", {"question": question, "answers": allanswers, "form": form})
+    
+def mark_correct(request, pk):
+    answer = Answer.objects.get(pk=pk)
+    if not answer.correct:
+      answer.correct = True
+      return JsonResponse({"correct": True })
+
+@login_required
+@csrf_exempt
+def toggle_favorite_question(request, pk):
+  question = get_object_or_404(Question, pk=pk)
+  if question in request.user.starred_questions.all():
+    request.user.starred_questions.remove(question)
+    is_favorite = False
+  else:
+    request.user.starred_questions.add(question)
+    is_favorite = True
+  return JsonResponse({"ok": True, "is_favorite": is_favorite})
 
 @csrf_exempt
 def mark_correct(request, pk):
